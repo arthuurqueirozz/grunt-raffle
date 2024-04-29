@@ -40,6 +40,35 @@ module.exports = function(grunt) {
                         dest: 'dev/'
                     }
                 ]
+            },
+            dist: {
+                options: {
+                    patterns: [
+                        {
+                            match: 'CSS_ADDRESS',
+                            replacement: './styles/main.min.css'
+                        }
+                    ]
+                },
+                files: [
+                    {
+                        expand: true,
+                        flatten: true,
+                        src: 'prebuild/index.html',
+                        dest: 'dist/'
+                    }
+                ]
+            }
+        },
+        htmlmin: {
+            dist: {
+                options:{
+                    removeComments: true,
+                    collapseWhitespace: true
+                },
+                files: {
+                    'prebuild/index.html': 'src/index.html'
+                }
             }
         }
     });
@@ -48,7 +77,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-less')
     grunt.loadNpmTasks('grunt-contrib-watch')
     grunt.loadNpmTasks('grunt-replace')
+    grunt.loadNpmTasks('grunt-contrib-htmlmin')
 
     grunt.registerTask('default', ['watch'])
-    grunt.registerTask('build', ['less:production'])
+    grunt.registerTask('build', ['less:production', 'htmlmin:dist', 'replace:dist'])
 };
