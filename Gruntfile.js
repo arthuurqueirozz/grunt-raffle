@@ -33,7 +33,11 @@ module.exports = function(grunt) {
                         {
                             match: 'CSS_ADDRESS',
                             replacement: './styles/main.css'
-                        }
+                        },
+                        {
+                            match: 'JS_ADDRESS',
+                            replacement: '../src/scripts/main.js'
+                        } 
                     ]
                 },
                 files: [
